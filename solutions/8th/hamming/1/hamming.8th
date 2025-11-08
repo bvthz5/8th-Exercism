@@ -1,0 +1,21 @@
+: distance \ s1 s2 -- n
+	\ if lengths differ, return null (do not throw)
+	s:len -rot
+	swap
+	s:len -rot
+	2swap n:=
+	!if
+		drop drop null
+	;then
+
+	\ split both strings into character arrays
+	/./ r:/ swap /./ r:/
+
+	\ start accumulator = 0 and iterate both arrays together
+	0 -rot
+
+	( s:= not nip if n:1+ then ) a:2each
+
+	\ remove the two arrays left on the stack, leaving only the count
+	2drop
+;
